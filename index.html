@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TaskFlow - Modern SaaS Landing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-soft: #0f172a;
+      --accent: #4f46e5;
+      --accent-soft: rgba(79, 70, 229, 0.15);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --card: #020617;
+      --border: #1f2937;
+      --radius-lg: 1.25rem;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.8);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top, #1e293b 0, #020617 45%, #020617 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to bottom, rgba(15, 23, 42, 0.9), transparent);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 20% 0, #a855f7, #4f46e5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .9rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-cta {
+      padding: 0.45rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(129, 140, 248, 0.7);
+      font-size: 0.85rem;
+      background: radial-gradient(circle at 0 0, rgba(79, 70, 229, 0.4), transparent);
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 2.5rem;
+      align-items: center;
+      margin-bottom: 4rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      color: var(--muted);
+      margin-bottom: 0.9rem;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.25);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.3rem, 4vw, 3rem);
+      line-height: 1.1;
+      margin-bottom: 0.9rem;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(to right, #6366f1, #ec4899);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 0.98rem;
+      max-width: 32rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 0.7rem 1.4rem;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(to right, #4f46e5, #6366f1);
+      box-shadow: 0 18px 45px rgba(79, 70, 229, 0.65);
+      color: white;
+    }
+
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--text);
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .hero-meta strong {
+      display: block;
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    .hero-visual {
+      background: radial-gradient(circle at 0 0, rgba(129, 140, 248, 0.45), transparent),
+        radial-gradient(circle at 100% 100%, rgba(236, 72, 153, 0.35), transparent);
+      border-radius: 1.75rem;
+      padding: 1.2rem;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-card {
+      background: rgba(2, 6, 23, 0.95);
+      border-radius: 1.5rem;
+      padding: 1.2rem;
+      border: 1px solid rgba(148, 163, 184, 0.28);
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .status-pill {
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(22, 163, 74, 0.12);
+      color: #4ade80;
+      font-size: 0.7rem;
+    }
+
+    .kanban {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    .column {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 0.9rem;
+      padding: 0.55rem;
+      border: 1px solid rgba(30, 64, 175, 0.6);
+    }
+
+    .column h4 {
+      font-size: 0.8rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .tag-pill {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.45rem;
+      border-radius: 999px;
+      background: rgba(59, 130, 246, 0.18);
+      color: #93c5fd;
+      margin-bottom: 0.3rem;
+    }
+
+    .task {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 0.65rem;
+      padding: 0.45rem;
+      font-size: 0.75rem;
+      border: 1px solid rgba(51, 65, 85, 0.8);
+      margin-bottom: 0.35rem;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 4rem;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.45rem;
+    }
+
+    .section-heading {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.3rem;
+    }
+
+    .feature-card {
+      background: var(--bg-soft);
+      border-radius: var(--radius-lg);
+      padding: 1.1rem;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      font-size: 0.9rem;
+    }
+
+    .feature-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.3rem;
+    }
+
+    .pricing-card {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      padding: 1.2rem;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .pricing-card.highlight {
+      border-color: var(--accent);
+      box-shadow: 0 22px 55px rgba(79, 70, 229, 0.6);
+      transform: translateY(-4px);
+    }
+
+    .pricing-name {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .price {
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    .price span {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .pricing-features {
+      list-style: none;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin: 0.4rem 0 0.6rem;
+    }
+
+    .pricing-features li {
+      margin-bottom: 0.3rem;
+    }
+
+    .pricing-features li::before {
+      content: "✓";
+      color: #22c55e;
+      margin-right: 0.4rem;
+    }
+
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.1rem;
+    }
+
+    .testimonial-card {
+      background: var(--bg-soft);
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .testimonial-author {
+      margin-top: 0.7rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #4f46e5, #ec4899);
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    footer {
+      border-top: 1px solid rgba(148, 163, 184, 0.28);
+      padding-top: 1.5rem;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    footer a {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    footer a:hover {
+      color: var(--text);
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        order: -1;
+      }
+
+      .features-grid,
+      .pricing-grid,
+      .testimonials {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ====== HOVER EFFECTS ADDED ====== */
+
+/* Buttons */
+.btn-primary,
+.btn-ghost {
+  transition: .35s ease;
+  transform: translateY(0);
+}
+
+.btn-primary:hover,
+.btn-ghost:hover {
+  transform: translateY(-6px) scale(1.05);
+  letter-spacing: .5px;
+  opacity: .95;
+}
+
+/* Navbar links */
+.nav-links a {
+  transition: .25s ease;
+}
+
+.nav-links a:hover {
+  color: #fff;
+  letter-spacing: .5px;
+}
+
+/* Logo hover */
+.logo-mark {
+  transition: .3s;
+}
+
+.logo:hover .logo-mark {
+  transform: rotate(10deg) scale(1.1);
+}
+
+/* Feature cards */
+.feature-card {
+  transition: .35s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--accent);
+  box-shadow: 0 15px 35px rgba(79,70,229,.4);
+}
+
+/* Pricing cards */
+.pricing-card {
+  transition: .35s ease;
+}
+
+.pricing-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 25px 55px rgba(79,70,229,.45);
+  border-color: var(--accent);
+}
+
+/* Testimonials */
+.testimonial-card {
+  transition: .35s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 45px rgba(236,72,153,.35);
+}
+
+/* Hero visual card */
+.hero-visual {
+  transition: .45s ease;
+}
+
+.hero-visual:hover {
+  transform: translateY(-10px) scale(1.03);
+}
+
+    
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-inner">
+      <div class="logo">
+        <div class="logo-mark">TF</div>
+        <span>TaskFlow</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#testimonials">Clients</a>
+      </nav>
+      <a href="#pricing" class="nav-cta">Get started</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="badge">
+          <span class="badge-dot"></span>
+          Used by product teams worldwide
+        </div>
+        <h1>Ship better products with <span>clean workflows.</span></h1>
+        <p>
+          TaskFlow brings your tasks, sprints and product roadmaps together in one fast, collaborative
+          workspace. Designed for teams that care about details and delivery.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-primary">Start free trial</button>
+          <button class="btn-ghost">Book a live demo →</button>
+        </div>
+        <div class="hero-meta">
+          <div>
+            <strong>10k+</strong>
+            Product teams
+          </div>
+          <div>
+            <strong>4.9/5</strong>
+            Average satisfaction
+          </div>
+          <div>
+            <strong>2x faster</strong>
+            From idea to launch
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hero-card-header">
+            <span>Team roadmap</span>
+            <span class="status-pill">Live sprint</span>
+          </div>
+          <div class="kanban">
+            <div class="column">
+              <h4>Backlog</h4>
+              <span class="tag-pill">12 tasks</span>
+              <div class="task">New onboarding flow</div>
+              <div class="task">Improve dashboard empty states</div>
+            </div>
+            <div class="column">
+              <h4>In Review</h4>
+              <span class="tag-pill">5 tasks</span>
+              <div class="task">Billing integration tests</div>
+              <div class="task">Team analytics widget</div>
+            </div>
+            <div class="column">
+              <h4>Shipped</h4>
+              <span class="tag-pill">3 releases</span>
+              <div class="task">Dark mode launch</div>
+              <div class="task">New API docs</div>
+            </div>
+          </div>
+          <div class="stats">
+            <span>Next release: 3 days</span>
+            <span>Reliability: 99.9%</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <p class="section-label">Product</p>
+      <h2 class="section-heading">Built for focused execution.</h2>
+      <div class="features-grid">
+        <article class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Realtime boards</h3>
+          <p>Update tasks, assign owners and track progress without ever refreshing your browser.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Outcome-based roadmap</h3>
+          <p>Plan releases around measurable outcomes instead of endless backlogs and vague ideas.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>Enterprise security</h3>
+          <p>SSO, audit logs and role-based permissions built-in so your data stays exactly where it should.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <p class="section-label">Pricing</p>
+      <h2 class="section-heading">Simple plans for growing teams.</h2>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <p class="pricing-name">Starter</p>
+          <p class="price">$19 <span>/ month</span></p>
+          <ul class="pricing-features">
+            <li>Up to 3 team members</li>
+            <li>Kanban board & timelines</li>
+            <li>Email support</li>
+          </ul>
+          <button class="btn-ghost">Choose Starter</button>
+        </div>
+
+        <div class="pricing-card highlight">
+          <p class="pricing-name">Growth</p>
+          <p class="price">$39 <span>/ month</span></p>
+          <ul class="pricing-features">
+            <li>Unlimited projects</li>
+            <li>Advanced analytics</li>
+            <li>Priority support</li>
+          </ul>
+          <button class="btn-primary" style="width: 100%;">Choose Growth</button>
+        </div>
+
+        <div class="pricing-card">
+          <p class="pricing-name">Scale</p>
+          <p class="price">Let’s talk</p>
+          <ul class="pricing-features">
+            <li>Custom onboarding</li>
+            <li>SSO & audit logs</li>
+            <li>Dedicated success manager</li>
+          </ul>
+          <button class="btn-ghost">Talk to sales</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials">
+      <p class="section-label">Teams that ship with TaskFlow</p>
+      <h2 class="section-heading">Trusted by fast-moving companies.</h2>
+      <div class="testimonials">
+        <article class="testimonial-card">
+          “TaskFlow helped our team cut release time in half. The UI feels fast, familiar and delightful.”
+          <div class="testimonial-author">
+            <div class="avatar">AL</div>
+            <div>
+              <strong>Amira Lotfy</strong><br />
+              Product Lead, NovaPay
+            </div>
+          </div>
+        </article>
+        <article class="testimonial-card">
+          “We finally have one roadmap where design, product and engineering can work together.”
+          <div class="testimonial-author">
+            <div class="avatar">MK</div>
+            <div>
+              <strong>Mohamed Kareem</strong><br />
+              VP Engineering, Flowdesk
+            </div>
+          </div>
+        </article>
+        <article class="testimonial-card">
+          “Onboarding took less than a day and the impact on our delivery speed was immediate.”
+          <div class="testimonial-author">
+            <div class="avatar">SN</div>
+            <div>
+              <strong>Sarah Nabil</strong><br />
+              Founder, Collab Studio
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      <span>© 2025 TaskFlow. All rights reserved.</span>
+      <div>
+        <a href="#">Status</a> ·
+        <a href="#">Docs</a> ·
+        <a href="#">Support</a>
+      </div>
+    </footer>
+  </main>
+  
+</body>
+</html>
